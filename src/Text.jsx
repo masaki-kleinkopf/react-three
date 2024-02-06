@@ -13,20 +13,19 @@ export default function Text(props) {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
-  const [isPositiveRotate, setIsPositiveRotate] = useState(true)
   const helvetikerRegular = new FontLoader().parse(helvetiker)
+  let isPositiveRotate;
   // Subscribe this component to the render-loop, rotate the mesh every frame
-// useFrame((state, delta) => (meshRef.current.rotation.x += delta))
-useFrame((state, delta) => {
-  if (meshRef.current.rotation.z > .1) {setIsPositiveRotate(false)}
-  if (meshRef.current.rotation.z < -.1) {setIsPositiveRotate(true)}
-  console.log(meshRef.current.rotation)
-  if (isPositiveRotate) {
-    return meshRef.current.rotation.z += delta / 5
-  } else {
-    return meshRef.current.rotation.z -= delta / 5
-  }
-})
+useFrame((state, delta) => (meshRef.current.rotation.y += delta / 5))
+// useFrame((state, delta) => {
+//   if (meshRef.current.rotation.x > .1) {isPositiveRotate = false}
+//   if (meshRef.current.rotation.x < -.1) {isPositiveRotate = true}
+//   if (isPositiveRotate) {
+//     return meshRef.current.rotation.x += delta / 8
+//   } else {
+//     return meshRef.current.rotation.x -= delta / 8
+//   }
+// })
 const handleClick = () => {
   meshRef.current.rotation.x += 100
 }
@@ -35,25 +34,15 @@ return (
   <mesh
     {...props}
     ref={meshRef}
-    scale={active ? 2 : 1}
+    scale={active ? 1 : 1}
     // onClick={(event) => setActive(!active)}
     onClick={handleClick}
     onPointerOver={(event) => setHover(true)}
     onPointerOut={(event) => setHover(false)}
     >
     {/* <cylinderGeometry args={[1, 1, 1, 10, 10]} /> */}
-    <textGeometry args={['MK', { font: helvetikerRegular, size:2, height: 1}]}/>
+    <textGeometry args={['MK', { font: helvetikerRegular, size:1, height: 1}]}/>
     <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
   </mesh>
 )
 }
-
-createRoot(document.getElementById('root')).render(
-<Canvas>
-  <ambientLight intensity={Math.PI / 2} />
-  <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-  <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-  <Text position={[-1.2, 0, 0]} />
-  <Text position={[1.2, 0, 0]} />
-</Canvas>,
-)
