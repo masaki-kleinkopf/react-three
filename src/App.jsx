@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import Text from './Text.jsx'
+import './App.css'
 
 export default function App() {
   return (
