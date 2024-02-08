@@ -41,7 +41,7 @@ return (
     onPointerOut={(event) => setHover(false)}
     >
     {/* <cylinderGeometry args={[1, 1, 1, 10, 10]} /> */}
-    <textGeometry args={['MK', { font: helvetikerRegular, size:1, height: 1}]}/>
+    <textGeometry args={['MK', { font: helvetikerRegular, size:1, height: .5}]}/>
     <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
   </mesh>
 )
